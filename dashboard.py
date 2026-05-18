@@ -169,7 +169,7 @@ thead th {
 # LOAD DATA
 # ======================================================
 
-file_path = r"D:\Dashboard_Project\master_file_updated.xlsx"
+file_path = "master_file_updated.xlsx"
 
 df = pd.read_excel(file_path)
 
