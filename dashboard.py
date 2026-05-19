@@ -229,7 +229,7 @@ file_path = "master_file_updated.xlsx"
 df = pd.read_excel(file_path)
 
 
-cols_to_clean = ["ulb_name", "district", "region", "grade","ulb_code"]
+cols_to_clean = ["ulb_name", "district", "region", "grade"]
 
 for col in cols_to_clean:
     df[col] = (
