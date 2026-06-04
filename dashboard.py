@@ -280,7 +280,7 @@ gvmc_mask = (
 )
 
 df.loc[gvmc_mask, "ulb_name"] = "GVMC"
-df.loc[gvmc_mask, ulb_code] = 1086
+df.loc[gvmc_mask, "ulb_code"] = "1086"
 df.loc[gvmc_mask, "district"] = "VISAKHAPATNAM"
 df.loc[gvmc_mask, "region"] = "VISAKHAPATNAM"
 df.loc[gvmc_mask, "grade"] = "Corp"
@@ -301,7 +301,7 @@ mt_mask = (
 )
 
 df.loc[mt_mask, "ulb_name"] = "Mangalagiri Tadepalli"
-df.loc[mt_mask, ulb_code] = 1023
+df.loc[mt_mask, "ulb_code"] = "1023"
 df.loc[mt_mask, "district"] = "GUNTUR"
 df.loc[mt_mask, "region"] = "GUNTUR"
 df.loc[mt_mask, "grade"] = "Corp"
