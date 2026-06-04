@@ -77,7 +77,11 @@ header {visibility:hidden;}
 footer {visibility:hidden;}
 
 .stApp {
-    background-color:#f4f7fb;
+    background: linear-gradient(
+        180deg,
+        #EEF4F9 0%,
+        #F8FAFD 100%
+    );
 }
 
 .block-container {
@@ -89,16 +93,19 @@ footer {visibility:hidden;}
 /* TITLE */
 .dashboard-title {
     text-align:center;
-    font-size:42px;
+    font-size:44px;
     font-weight:900;
     color:white;
-    padding:16px;
-    border-radius:16px;
-    background:linear-gradient(90deg,#0F3D56,#1976D2);
-    box-shadow:0px 4px 14px rgba(0,0,0,0.15);
-    margin-bottom:12px;
+    padding:20px;
+    border-radius:18px;
+    background:linear-gradient(
+        90deg,
+        #0F3D56,
+        #1565C0
+    );
+    box-shadow:0px 6px 16px rgba(0,0,0,0.15);
+    margin-bottom:18px;
 }
-
 /* FILTER CARD */
 
 .filter-card {
@@ -155,30 +162,47 @@ div[data-baseweb="select"]:hover {
     transform:translateY(-5px);
 }
 
-.kpi-title {
-    font-size:18px;
-    font-weight:600;
+.kpi-card{
+    padding:24px;
+    min-height:180px;
+    border-radius:18px;
+    text-align:center;
+    color:white;
+    box-shadow:0 6px 16px rgba(0,0,0,0.15);
+    transition:0.3s;
 }
 
-.kpi-value {
-    font-size:34px;
-    font-weight:800;
-    margin-top:10px;
+.kpi-card:hover{
+    transform:translateY(-4px);
 }
-.kpi-sub {
-    font-size:15px;
+
+.kpi-title{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.kpi-value{
+    font-size:34px;
+    font-weight:900;
+    margin-bottom:15px;
+}
+
+.kpi-count{
+    background:rgba(255,255,255,0.20);
+    padding:10px;
+    border-radius:12px;
+    font-size:16px;
     font-weight:600;
-    margin-top:8px;
-    opacity:0.95;
-    border-top:1px solid rgba(255,255,255,0.25);
-    padding-top:8px;
 }
 /* TABLE HEADER */
 th {
     background: linear-gradient(90deg, #1E3C72, #2A5298) !important;
     color: white !important;
     text-align: center !important;
-    font-size: 12px !important;
+    font-size:14px !important;
+    font-weight:700 !important;
+    padding:12px !important;
     white-space: normal !important;
     word-wrap: break-word !important;
     border: 1px solid #D6E4F0 !important;
@@ -203,7 +227,8 @@ tbody tr:hover {
 /* TABLE CELLS */
 td {
     text-align: center !important;
-    font-size: 12px !important;
+    font-size:13px !important;
+    padding:12px !important;
     padding: 8px !important;
     border: 1px solid #E6EEF8 !important;
 }
@@ -319,7 +344,7 @@ df.loc[mt_mask, "grade"] = "Corp"
 
 st.markdown("""
 <div class='dashboard-title'>
-DEMAND INCREASE REPORT
+DEMAND INCREASE DASHBOARD
 </div>
 """, unsafe_allow_html=True)
 
@@ -524,75 +549,71 @@ k1, k2, k3, k4 = st.columns(4)
 
 with k1:
     st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#1565C0,#42A5F5);'>
-
-        <h3 style='margin:0;color:white;'>
+    <div class="kpi-card"
+    style="background:linear-gradient(135deg,#1565C0,#42A5F5)">
+        <div class="kpi-title">
             Unassessed Demand
-        </h3>
+        </div>
 
-        <h1 style='margin-top:15px;color:white;'>
-            {unassessed_amt/divisor:,.2f}{suffix}
-        </h1>
+        <div class="kpi-value">
+            ₹ {unassessed_amt/divisor:,.2f}{suffix}
+        </div>
 
-        <hr style='border:0.5px solid rgba(255,255,255,0.3);'>
-
-        <p style='font-size:16px;color:white;font-weight:600;'>
-            Properties : {unassessed_count:,}
-        </p>
-
+        <div class="kpi-count">
+            {unassessed_count:,} Properties
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
 with k2:
     st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#EF6C00,#FFA726);'>
-        <div class='kpi-title'>
+    <div class="kpi-card"
+    style="background:linear-gradient(135deg,#EF6C00,#FFA726)">
+        <div class="kpi-title">
             Under Assessed Demand
         </div>
 
-        <div class='kpi-value'>
-            {under_assessed_amt/divisor:,.2f}{suffix}
+        <div class="kpi-value">
+            ₹ {under_assessed_amt/divisor:,.2f}{suffix}
         </div>
 
-        <div class='kpi-sub'>
-            Properties : {under_assessed_count:,}
+        <div class="kpi-count">
+            {under_assessed_count:,} Properties
         </div>
     </div>
     """, unsafe_allow_html=True)
 
 with k3:
     st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#2E7D32,#66BB6A);'>
-        <div class='kpi-title'>
+    <div class="kpi-card"
+    style="background:linear-gradient(135deg,#2E7D32,#66BB6A)">
+        <div class="kpi-title">
             Total Demand Increase
         </div>
 
-        <div class='kpi-value'>
-            {total_amt/divisor:,.2f}{suffix}
+        <div class="kpi-value">
+            ₹ {total_amt/divisor:,.2f}{suffix}
         </div>
 
-        <div class='kpi-sub'>
-            Properties : {total_properties:,}
+        <div class="kpi-count">
+            {total_properties:,} Properties
         </div>
     </div>
     """, unsafe_allow_html=True)
 
 with k4:
     st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#6A1B9A,#AB47BC);'>
-        <div class='kpi-title'>
+    <div class="kpi-card"
+    style="background:linear-gradient(135deg,#6A1B9A,#AB47BC)">
+        <div class="kpi-title">
             Report As On
         </div>
 
-        <div class='kpi-value'>
+        <div class="kpi-value">
             {latest_date.strftime('%d-%m-%Y')}
         </div>
 
-        <div class='kpi-sub'>
+        <div class="kpi-count">
             Latest Disposal Date
         </div>
     </div>
@@ -727,16 +748,10 @@ st.download_button(
 # ======================================================
 
 table_html = summary_df.to_html(index=False)
+summary_df = summary_df.fillna("")
 
-st.markdown(f"""
-<div style="
-    height:650px;
-    overflow-y:auto;
-    border:1px solid #D6E4F0;
-    border-radius:10px;
-">
-
-{table_html}
-
-</div>
-""", unsafe_allow_html=True)
+st.dataframe(
+    summary_df,
+    use_container_width=True,
+    height=700
+)
