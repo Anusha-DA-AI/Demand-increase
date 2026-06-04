@@ -143,14 +143,14 @@ div[data-baseweb="select"]:hover {
 
 /* KPI */
 .kpi-card {
-    padding:18px;
+    padding:22px;
+    min-height:120px;
     border-radius:18px;
     color:white;
     text-align:center;
     box-shadow:0px 4px 12px rgba(0,0,0,0.12);
     transition:0.3s;
 }
-
 .kpi-card:hover {
     transform:translateY(-5px);
 }
@@ -161,11 +161,10 @@ div[data-baseweb="select"]:hover {
 }
 
 .kpi-value {
-    font-size:30px;
+    font-size:34px;
     font-weight:800;
-    margin-top:8px;
+    margin-top:10px;
 }
-
 /* TABLE HEADER */
 th {
     background: linear-gradient(90deg, #1E3C72, #2A5298) !important;
@@ -229,7 +228,7 @@ file_path = "master_file_updated.xlsx"
 df = pd.read_excel(file_path)
 
 
-cols_to_clean = ["ulb_name", "district", "region", "grade"]
+cols_to_clean = ["ulb_name", "district", "region", "grade","ulb_code"]
 
 for col in cols_to_clean:
     df[col] = (
@@ -478,8 +477,20 @@ under_assessed_amt = filtered_df[
 
 total_amt = unassessed_amt + under_assessed_amt
 
-latest_date = filtered_df["erpdisposaldt"].max()
+unassessed_count = filtered_df[
+    "Unassessed_Count"
+].sum()
 
+under_assessed_count = filtered_df[
+    "Under_Assessed_Count"
+].sum()
+
+total_properties = (
+    unassessed_count +
+    under_assessed_count
+)
+
+latest_date = filtered_df["erpdisposaldt"].max()
 # ======================================================
 # DISPLAY UNIT
 # ======================================================
@@ -501,40 +512,14 @@ else:
 # KPI CARDS
 # ======================================================
 
-k1, k2, k3, k4 = st.columns(4)
+k1, k2, k3 = st.columns(3)
 
 with k1:
     st.markdown(f"""
     <div class='kpi-card'
-         style='background:linear-gradient(135deg,#1565C0,#42A5F5);'>
-        <div class='kpi-title'>
-            Unassessed Demand
-        </div>
-        <div class='kpi-value'>
-            {unassessed_amt/divisor:,.2f}{suffix}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with k2:
-    st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#EF6C00,#FFA726);'>
-        <div class='kpi-title'>
-            Under Assessed Demand
-        </div>
-        <div class='kpi-value'>
-            {under_assessed_amt/divisor:,.2f}{suffix}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with k3:
-    st.markdown(f"""
-    <div class='kpi-card'
          style='background:linear-gradient(135deg,#2E7D32,#66BB6A);'>
         <div class='kpi-title'>
-            Total Achievement
+            Total Demand Increase
         </div>
         <div class='kpi-value'>
             {total_amt/divisor:,.2f}{suffix}
@@ -542,7 +527,20 @@ with k3:
     </div>
     """, unsafe_allow_html=True)
 
-with k4:
+with k2:
+    st.markdown(f"""
+    <div class='kpi-card'
+         style='background:linear-gradient(135deg,#00897B,#26A69A);'>
+        <div class='kpi-title'>
+            Total Properties
+        </div>
+        <div class='kpi-value'>
+            {total_properties:,}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k3:
     st.markdown(f"""
     <div class='kpi-card'
          style='background:linear-gradient(135deg,#6A1B9A,#AB47BC);'>
@@ -555,6 +553,65 @@ with k4:
     </div>
     """, unsafe_allow_html=True)
 
+st.markdown("<br>", unsafe_allow_html=True)
+
+# ======================================================
+# KPI CARDS - ROW 2
+# ======================================================
+
+k4, k5, k6, k7 = st.columns(4)
+
+with k4:
+    st.markdown(f"""
+    <div class='kpi-card'
+         style='background:linear-gradient(135deg,#1565C0,#42A5F5);'>
+        <div class='kpi-title'>
+            Unassessed Demand
+        </div>
+        <div class='kpi-value'>
+            {unassessed_amt/divisor:,.2f}{suffix}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k5:
+    st.markdown(f"""
+    <div class='kpi-card'
+         style='background:linear-gradient(135deg,#1976D2,#64B5F6);'>
+        <div class='kpi-title'>
+            Unassessed Properties
+        </div>
+        <div class='kpi-value'>
+            {unassessed_count:,}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k6:
+    st.markdown(f"""
+    <div class='kpi-card'
+         style='background:linear-gradient(135deg,#EF6C00,#FFA726);'>
+        <div class='kpi-title'>
+            Under Assessed Demand
+        </div>
+        <div class='kpi-value'>
+            {under_assessed_amt/divisor:,.2f}{suffix}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with k7:
+    st.markdown(f"""
+    <div class='kpi-card'
+         style='background:linear-gradient(135deg,#F57C00,#FFB74D);'>
+        <div class='kpi-title'>
+            Under Assessed Properties
+        </div>
+        <div class='kpi-value'>
+            {under_assessed_count:,}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 # ======================================================
 # GROUPING
 # ======================================================
