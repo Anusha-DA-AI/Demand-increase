@@ -162,7 +162,7 @@ div[data-baseweb="select"]:hover {
     transform:translateY(-5px);
 }
 
-.kpi-card{
+/*.kpi-card{
     padding:24px;
     min-height:180px;
     border-radius:18px;
@@ -194,7 +194,7 @@ div[data-baseweb="select"]:hover {
     border-radius:12px;
     font-size:16px;
     font-weight:600;
-}
+} */
 /* TABLE HEADER */
 th {
     background: linear-gradient(90deg, #1E3C72, #2A5298) !important;
@@ -246,6 +246,27 @@ thead th {
     position: sticky;
     top: 0;
     z-index: 100;
+}
+/* KPI METRIC CARDS */
+
+[data-testid="stMetric"] {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #D6E4F0;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.10);
+}
+
+[data-testid="stMetricLabel"] {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0F3D56;
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1565C0;
 }
 
 </style>
@@ -548,76 +569,32 @@ else:
 k1, k2, k3, k4 = st.columns(4)
 
 with k1:
-    st.markdown(f"""
-    <div class="kpi-card"
-    style="background:linear-gradient(135deg,#1565C0,#42A5F5)">
-        <div class="kpi-title">
-            Unassessed Demand
-        </div>
-
-        <div class="kpi-value">
-            ₹ {unassessed_amt/divisor:,.2f}{suffix}
-        </div>
-
-        <div class="kpi-count">
-            {unassessed_count:,} Properties
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.metric(
+        label="Unassessed Demand",
+        value=f"₹ {unassessed_amt/divisor:,.2f}{suffix}"
+    )
+    st.caption(f"🏠 {unassessed_count:,} Properties")
 
 with k2:
-    st.markdown(f"""
-    <div class="kpi-card"
-    style="background:linear-gradient(135deg,#EF6C00,#FFA726)">
-        <div class="kpi-title">
-            Under Assessed Demand
-        </div>
-
-        <div class="kpi-value">
-            ₹ {under_assessed_amt/divisor:,.2f}{suffix}
-        </div>
-
-        <div class="kpi-count">
-            {under_assessed_count:,} Properties
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.metric(
+        label="Under Assessed Demand",
+        value=f"₹ {under_assessed_amt/divisor:,.2f}{suffix}"
+    )
+    st.caption(f"🏠 {under_assessed_count:,} Properties")
 
 with k3:
-    st.markdown(f"""
-    <div class="kpi-card"
-    style="background:linear-gradient(135deg,#2E7D32,#66BB6A)">
-        <div class="kpi-title">
-            Total Demand Increase
-        </div>
-
-        <div class="kpi-value">
-            ₹ {total_amt/divisor:,.2f}{suffix}
-        </div>
-
-        <div class="kpi-count">
-            {total_properties:,} Properties
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.metric(
+        label="Total Demand Increase",
+        value=f"₹ {total_amt/divisor:,.2f}{suffix}"
+    )
+    st.caption(f"🏠 {total_properties:,} Properties")
 
 with k4:
-    st.markdown(f"""
-    <div class="kpi-card"
-    style="background:linear-gradient(135deg,#6A1B9A,#AB47BC)">
-        <div class="kpi-title">
-            Report As On
-        </div>
-
-        <div class="kpi-value">
-            {latest_date.strftime('%d-%m-%Y')}
-        </div>
-
-        <div class="kpi-count">
-            Latest Disposal Date
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.metric(
+        label="Report As On",
+        value=latest_date.strftime("%d-%m-%Y")
+    )
+    st.caption("Latest Disposal Date")
 # ======================================================
 # GROUPING
 # ======================================================
@@ -747,7 +724,6 @@ st.download_button(
 # TABLE
 # ======================================================
 
-table_html = summary_df.to_html(index=False)
 summary_df = summary_df.fillna("")
 
 st.dataframe(
