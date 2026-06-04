@@ -526,17 +526,21 @@ with k1:
     st.markdown(f"""
     <div class='kpi-card'
          style='background:linear-gradient(135deg,#1565C0,#42A5F5);'>
-        <div class='kpi-title'>
+
+        <h3 style='margin:0;color:white;'>
             Unassessed Demand
-        </div>
+        </h3>
 
-        <div class='kpi-value'>
+        <h1 style='margin-top:15px;color:white;'>
             {unassessed_amt/divisor:,.2f}{suffix}
-        </div>
+        </h1>
 
-        <div class='kpi-sub'>
+        <hr style='border:0.5px solid rgba(255,255,255,0.3);'>
+
+        <p style='font-size:16px;color:white;font-weight:600;'>
             Properties : {unassessed_count:,}
-        </div>
+        </p>
+
     </div>
     """, unsafe_allow_html=True)
 
