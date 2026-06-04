@@ -165,6 +165,14 @@ div[data-baseweb="select"]:hover {
     font-weight:800;
     margin-top:10px;
 }
+.kpi-sub {
+    font-size:15px;
+    font-weight:600;
+    margin-top:8px;
+    opacity:0.95;
+    border-top:1px solid rgba(255,255,255,0.25);
+    padding-top:8px;
+}
 /* TABLE HEADER */
 th {
     background: linear-gradient(90deg, #1E3C72, #2A5298) !important;
@@ -512,17 +520,22 @@ else:
 # KPI CARDS
 # ======================================================
 
-k1, k2, k3 = st.columns(3)
+k1, k2, k3, k4 = st.columns(4)
 
 with k1:
     st.markdown(f"""
     <div class='kpi-card'
-         style='background:linear-gradient(135deg,#2E7D32,#66BB6A);'>
+         style='background:linear-gradient(135deg,#1565C0,#42A5F5);'>
         <div class='kpi-title'>
-            Total Demand Increase
+            Unassessed Demand
         </div>
+
         <div class='kpi-value'>
-            {total_amt/divisor:,.2f}{suffix}
+            {unassessed_amt/divisor:,.2f}{suffix}
+        </div>
+
+        <div class='kpi-sub'>
+            Properties : {unassessed_count:,}
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -530,12 +543,17 @@ with k1:
 with k2:
     st.markdown(f"""
     <div class='kpi-card'
-         style='background:linear-gradient(135deg,#00897B,#26A69A);'>
+         style='background:linear-gradient(135deg,#EF6C00,#FFA726);'>
         <div class='kpi-title'>
-            Total Properties
+            Under Assessed Demand
         </div>
+
         <div class='kpi-value'>
-            {total_properties:,}
+            {under_assessed_amt/divisor:,.2f}{suffix}
+        </div>
+
+        <div class='kpi-sub'>
+            Properties : {under_assessed_count:,}
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -543,72 +561,35 @@ with k2:
 with k3:
     st.markdown(f"""
     <div class='kpi-card'
-         style='background:linear-gradient(135deg,#6A1B9A,#AB47BC);'>
+         style='background:linear-gradient(135deg,#2E7D32,#66BB6A);'>
         <div class='kpi-title'>
-            Report As On
+            Total Demand Increase
         </div>
+
         <div class='kpi-value'>
-            {latest_date.strftime('%d-%m-%Y')}
+            {total_amt/divisor:,.2f}{suffix}
+        </div>
+
+        <div class='kpi-sub'>
+            Properties : {total_properties:,}
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-# ======================================================
-# KPI CARDS - ROW 2
-# ======================================================
-
-k4, k5, k6, k7 = st.columns(4)
 
 with k4:
     st.markdown(f"""
     <div class='kpi-card'
-         style='background:linear-gradient(135deg,#1565C0,#42A5F5);'>
+         style='background:linear-gradient(135deg,#6A1B9A,#AB47BC);'>
         <div class='kpi-title'>
-            Unassessed Demand
+            Report As On
         </div>
-        <div class='kpi-value'>
-            {unassessed_amt/divisor:,.2f}{suffix}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
 
-with k5:
-    st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#1976D2,#64B5F6);'>
-        <div class='kpi-title'>
-            Unassessed Properties
-        </div>
         <div class='kpi-value'>
-            {unassessed_count:,}
+            {latest_date.strftime('%d-%m-%Y')}
         </div>
-    </div>
-    """, unsafe_allow_html=True)
 
-with k6:
-    st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#EF6C00,#FFA726);'>
-        <div class='kpi-title'>
-            Under Assessed Demand
-        </div>
-        <div class='kpi-value'>
-            {under_assessed_amt/divisor:,.2f}{suffix}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with k7:
-    st.markdown(f"""
-    <div class='kpi-card'
-         style='background:linear-gradient(135deg,#F57C00,#FFB74D);'>
-        <div class='kpi-title'>
-            Under Assessed Properties
-        </div>
-        <div class='kpi-value'>
-            {under_assessed_count:,}
+        <div class='kpi-sub'>
+            Latest Disposal Date
         </div>
     </div>
     """, unsafe_allow_html=True)
