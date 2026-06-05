@@ -195,7 +195,7 @@ tbody tr:hover {
 /* TABLE CELLS */
 td {
     text-align: center !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
     padding: 8px !important;
     border: 1px solid #E6EEF8 !important;
 }
